@@ -1,8 +1,6 @@
 ﻿using StudentDBFirst.Models.DB;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace StudentDBFirst.Controllers
@@ -17,6 +15,19 @@ namespace StudentDBFirst.Controllers
             using (JIStudentDBEntities db = new JIStudentDBEntities())
             {
                 students = db.Students.ToList<Student>();
+            }
+
+            return View(students);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Index(string searchterm)
+        {
+            List<Student> students;
+
+            using (JIStudentDBEntities db = new JIStudentDBEntities())
+            {
+                students = db.Students.Where(s => s.FullName.Contains(searchterm)).ToList();
             }
 
             return View(students);
