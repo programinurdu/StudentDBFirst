@@ -77,6 +77,5 @@ namespace StudentDBFirst.Controllers
 
             return View(student);
         }
-
     }
 }
